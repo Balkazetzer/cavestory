@@ -12,7 +12,7 @@ namespace player_constants {
 Player::Player() {}
 
 Player::Player(Graphics &graphics, Vector2 spawnPoint) :
-	AnimatedSprite(graphics, "content/sprites/MyChar.png", 0, 0, 16, 16, spawnPoint.x, spawnPoint.y, 100),
+	AnimatedSprite(graphics, "data/content/sprites/MyChar.png", 0, 0, 16, 16, spawnPoint.x, spawnPoint.y, 100),
 	_dx(0),
 	_dy(0),
 	_facing(RIGHT),
@@ -22,7 +22,7 @@ Player::Player(Graphics &graphics, Vector2 spawnPoint) :
 	_maxHealth(3),
 	_currentHealth(3)
 {
-	graphics.loadImage("content/sprites/MyChar.png");
+	graphics.loadImage("data/content/sprites/MyChar.png");
 
 	this->setupAnimations();
 	this->playAnimation("IdleRight");

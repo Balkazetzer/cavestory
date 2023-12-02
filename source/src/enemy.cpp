@@ -25,7 +25,7 @@ void Enemy::draw(Graphics &graphics) {
 Bat::Bat() {}
 
 Bat::Bat(Graphics &graphics, Vector2 spawnPoint) :
-		Enemy(graphics, "data/content/sprites/NpcCemet.png", 32, 32, 16, 16, spawnPoint, 140),
+		Enemy(graphics, "docs/content/sprites/NpcCemet.png", 32, 32, 16, 16, spawnPoint, 140),
 		_startingX(spawnPoint.x),
 		_startingY(spawnPoint.y),
 		_shouldMoveUp(false)

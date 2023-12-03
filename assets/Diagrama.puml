@@ -125,9 +125,7 @@ class Game
 	+ draw(graphics: Graphics): void
 	+ update(elapsedTime: float): void
 }
-
-namespace globals 
-{
+ 
 	class MyClass 
     {
 		- privateMember: int
@@ -143,7 +141,6 @@ namespace globals
 		# virtualMethod(): void
 		+ pureVirtualMethod() <<pure>>: void
 	}
-}
 
 class Graphics 
 {

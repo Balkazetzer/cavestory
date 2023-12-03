@@ -1,0 +1,364 @@
+@startuml FearandHunger
+
+class FearandHunger
+class Animatedsprite
+class Animatedtile
+class Door
+class Enemy
+class Game
+class Globals
+class Graphics
+class Hud
+class Level
+class Player
+class Rectangle
+class Slope
+class Sprite
+class Tile
+
+FearandHunger *-- Enemy
+FearandHunger *-- Player
+FearandHunger *-- Level
+Level *-- Door
+Level *-- Enemy
+Level o-- Tile
+Level o-- AnimatedTile
+Level o-- Globals
+Level o-- Slope
+AnimatedSprite o-- Sprite
+AnimatedSprite o-- Globals
+AnimatedTile o-- Tile
+AnimatedTile o-- Globals
+Door --|> Rectangle
+Door o-- Globals
+Enemy --|> Player
+Enemy o-- AnimatedSprite
+Enemy o-- Globals
+Game *-- Player
+Game *-- Level
+Game o-- Graphics
+Game o-- Hud
+Hud o-- Player
+Hud o-- Sprite
+Player o-- AnimatedSprite
+Player o-- Globals
+Player o-- Slope
+Rectangle o-- Globals
+Slope o-- Globals
+Sprite o-- Globals
+Sprite o-- Rectangle
+Tile o-- Globals
+
+
+
+
+class AnimatedSprite 
+{
+	- _timeToUpdate: double
+	- _currentAnimationOnce: bool
+	- _currentAnimation: std::string
+	- _animations: std::map<std::string, std::vector<SDL_Rect>>
+	- _offsets: std::map<std::string, Vector2>
+	- _frameIndex: int
+	- _timeElapsed: double
+	- _visible: bool
+
+	+ AnimatedSprite()
+	+ AnimatedSprite(graphics: Graphics, filePath: std::string, sourceX: int, sourceY: int, width: int, height: int, posX: float, posY: float, timeToUpdate: float)
+	+ playAnimation(animation: std::string, once: bool = false): void
+	+ update(elapsedTime: int): void
+	+ draw(graphics: Graphics, x: int, y: int): void
+	+ addAnimation(frames: int, x: int, y: int, name: std::string, width: int, height: int, offset: Vector2): void
+	+ resetAnimations(): void
+	+ stopAnimation(): void
+	+ setVisible(visible: bool): void
+	+ animationDone(currentAnimation: std::string): void
+	+ setupAnimations(): void
+}
+
+class AnimatedTile 
+{
+	- _amountOfTime: int
+	- _notDone: bool
+	- _tilesetPositions: std::vector<Vector2>
+	- _tileToDraw: int
+	- _duration: int
+	+ AnimatedTile(tilesetPositions: std::vector<Vector2>, duration: int, tileset: SDL_Texture*, size: Vector2, position: Vector2)
+	+ update(elapsedTime: int): void
+	+ draw(graphics: Graphics&): void
+}
+
+class Door 
+{
+	- _destination: std::string
+	+ Door()
+	+ Door(r: Rectangle, destination: std::string)
+	+ getRectangle(): Rectangle
+	+ getDestination(): std::string
+}
+
+class Enemy 
+{
+	-_direction: Direction
+	-_maxHealth: int
+	-_currentHealth: int
+
+	+Enemy()
+	+Enemy(graphics: Graphics, filePath: string, sourceX: int, sourceY: int, width: int, height: int, spawnPoint: Vector2, timeToUpdate: int)
+	+update(elapsedTime: int, player: Player): void
+	+draw(graphics: Graphics): void
+	+touchPlayer(player: Player): void
+	+getMaxHealth(): int
+	+getCurrentHealth(): int
+}
+
+class Game 
+{
+	- _player: Player
+	- _level: Level
+	- _hud: HUD
+	- _graphics: Graphics
+
+	+ Game()
+	+ ~Game()
+	+ gameLoop(): void
+	+ draw(graphics: Graphics): void
+	+ update(elapsedTime: float): void
+}
+
+namespace globals 
+{
+	class MyClass 
+    {
+		- privateMember: int
+		+ publicMember: float
+		# protectedMember: string
+
+		+ MyClass() // Constructor
+		+ ~MyClass() // Destructor
+
+		+ setPrivateMember(value: int): void
+		+ getPrivateMember(): int
+
+		# virtualMethod(): void
+		+ pureVirtualMethod() <<pure>>: void
+	}
+}
+
+class Graphics 
+{
+	- _window: SDL_Window*
+	- _renderer: SDL_Renderer*
+	- _spriteSheets: std::map<std::string, SDL_Surface*>
+
+	+ Graphics()
+	+ ~Graphics()
+	+ loadImage(const std::string &filePath): SDL_Surface*
+	+ blitSurface(SDL_Texture* source, SDL_Rect* sourceRectangle, SDL_Rect* destinationRectangle): void
+	+ flip(): void
+	+ clear(): void
+	+ getRenderer() const: SDL_Renderer*
+}
+
+class Hud 
+{
+    - _player: Player
+    - _graphics: Graphics
+    - _healthBarSprite: Sprite
+    - _healthNumber1: Sprite
+    - _currentHealthBar: float
+    - _maxHealthBar: float
+    - _healthBarSourceRect: SDL_Rect
+    - _healthBarDestRect: SDL_Rect
+    - _numberSourceRect: SDL_Rect
+    - _numberDestRect: SDL_Rect
+
+    + Hud()
+    + Hud(graphics: Graphics, player: Player)
+    + update(elapsedTime: int): void
+    + draw(graphics: Graphics): void
+}
+
+class Input 
+{
+    - _heldKeys: std::map<SDL_Scancode, bool>
+    - _pressedKeys: std::map<SDL_Scancode, bool>
+    - _releasedKeys: std::map<SDL_Scancode, bool>
+
+    + Input()
+    + beginNewFrame(): void
+    + keyUpEvent(event: SDL_Event): void
+    + keyDownEvent(event: SDL_Event): void
+    + wasKeyPressed(key: SDL_Scancode): bool
+    + wasKeyReleased(key: SDL_Scancode): bool
+    + isKeyHeld(key: SDL_Scancode): bool
+}
+
+class Level 
+{
+    - _mapName: std::string
+    - _size: Vector2
+    - _tileSize: int
+    - _tileSetFirstGid: int
+    - _spawnPoint: Vector2
+    - _collisionRects: std::vector<Rectangle>
+    - _slopes: std::vector<Slope>
+    - _animatedTileList: std::vector<AnimatedTile>
+    - _tileList: std::vector<Tile>
+    - _doorList: std::vector<Door>
+    - _enemies: std::vector<Enemy>
+    - _hud: Hud
+    - _player: Player
+
+    + Level()
+    + Level(mapName: std::string, graphics: Graphics)
+    + ~Level()
+    + update(elapsedTime: int, player: Player): void
+    + draw(graphics: Graphics): void
+    + loadMap(mapName: std::string, graphics: Graphics): void
+    + checkTileCollisions(rect: Rectangle): std::vector<Rectangle>
+    + checkSlopeCollisions(rect: Rectangle): std::vector<Slope>
+    + checkDoorCollisions(rect: Rectangle): std::vector<Door>
+    + checkPointCollisions(rect: Rectangle): std::vector<Vector2>
+    + getTileSize() const: int
+    + getSpawnPoint() const: Vector2
+    + getCollisionRects() const: std::vector<Rectangle>
+    + getCollisionSlopes() const: std::vector<Slope>
+    + getAnimatedTileList() const: std::vector<AnimatedTile>
+    + getTileList() const: std::vector<Tile>
+    + getDoorList() const: std::vector<Door>
+    + getEnemies() const: std::vector<Enemy>
+    + getHud() const: Hud
+    + getPlayer() const: Player
+}
+
+class Player 
+{
+    - _x: float
+    - _y: float
+    - _dx: float
+    - _dy: float
+    - _facing: Direction
+    - _grounded: bool
+    - _lookingUp: bool
+    - _lookingDown: bool
+    - _maxHealth: int
+    - _currentHealth: int
+    - _healthDrainRate: int
+    - _healthDrainTimer: int
+    - _sprite: AnimatedSprite
+
+    + Player()
+    + Player(graphics: Graphics, spawnPoint: Vector2)
+    + update(elapsedTime: int): void
+    + draw(graphics: Graphics): void
+    + moveLeft(): void
+    + moveRight(): void
+    + stopMoving(): void
+    + lookUp(): void
+    + stopLookingUp(): void
+    + lookDown(): void
+    + stopLookingDown(): void
+    + jump(): void
+    + handleTileCollisions(rects: std::vector<Rectangle>): void
+    + handleSlopeCollisions(slopes: std::vector<Slope>): void
+    + handleDoorCollision(doors: std::vector<Door>, level: Level, graphics: Graphics): void
+    + handleEnemyCollisions(enemies: std::vector<Enemy>): void
+    + handleHudCollisions(hud: Hud): void
+    + gainHealth(amount: int): void
+    + loseHealth(amount: int): void
+    + getHealth(): int
+    + getMaxHealth(): int
+    + getCenterX(): int
+    + getCenterY(): int
+    + getFeetPosition(): Vector2
+    + getHeadPosition(): Vector2
+    + getLeftPosition(): Vector2
+    + getRightPosition(): Vector2
+    + getSprite(): AnimatedSprite
+}
+
+class Rectangle 
+{
+    - _x: int
+    - _y: int
+    - _width: int
+    - _height: int
+
+    + Rectangle()
+    + Rectangle(x: int, y: int, width: int, height: int)
+    + getCenterX(): int
+    + getCenterY(): int
+    + getLeft(): int
+    + getRight(): int
+    + getTop(): int
+    + getBottom(): int
+    + getSide(side: Side): int
+    + getTopLeft(): Vector2
+    + getTopRight(): Vector2
+    + getBottomLeft(): Vector2
+    + getBottomRight(): Vector2
+}
+
+class Slope 
+{
+    - _p1: Vector2
+    - _p2: Vector2
+    - _collider: Rectangle
+    - _angle: float
+    - _collideWith: bool
+
+    + Slope()
+    + Slope(p1: Vector2, p2: Vector2)
+    + getSlopeAngle(): float
+    + getCollider(): Rectangle
+    + getCollideWith(): bool
+    + setCollideWith(collideWith: bool): void
+}
+
+class Sprite 
+{
+    - _x: int
+    - _y: int
+    - _width: int
+    - _height: int
+    - _spriteSheet: SDL_Texture*
+
+    + Sprite()
+    + Sprite(graphics: Graphics, filePath: std::string, sourceX: int, sourceY: int, width: int, height: int, posX: float, posY: float)
+    + ~Sprite()
+    + draw(graphics: Graphics, x: int, y: int): void
+}
+
+class Tile 
+{
+    - _tilesetPos: Vector2
+    - _tilesetPosition: Vector2
+    - _size: Vector2
+    - _tileset: SDL_Texture*
+
+    + Tile()
+    + Tile(tilesetPos: Vector2, size: Vector2, tileset: SDL_Texture*, tilesetPosition: Vector2)
+    + update(elapsedTime: int): void
+    + draw(graphics: Graphics): void
+}
+
+class Tinyxml2 
+{
+    + Tinyxml2()
+    + ~Tinyxml2()
+    + loadMap(mapName: std::string, level: Level): void
+}
+
+class Utils 
+{
+    + Utils()
+    + ~Utils()
+    + split(s: std::string, delim: char): std::vector<std::string>
+    + ltrim(s: std::string): std::string
+    + rtrim(s: std::string): std::string
+    + trim(s: std::string): std::string
+}
+
+@enduml
+```

@@ -1,8 +1,8 @@
 #OBJS specifies which files to compile as part of the project
-SRC_DIR = source/src
+SRC_DIR = src
 TEMP_DIR = temp
 BIN_DIR = bin
-INCLUDE_DIR = source/headers
+INCLUDE_DIR = include
 
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(TEMP_DIR)/%.o,$(SRCS))

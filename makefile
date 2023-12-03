@@ -6,7 +6,7 @@ INCLUDE_DIR = source/headers
 
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(TEMP_DIR)/%.o,$(SRCS))
-OBJ_NAME = $(BIN_DIR)/fearandhunger
+OBJ_NAME = $(BIN_DIR)/cavestory
 
 # Flags for linking
 LINK_FLAGS =-lmingw32 -lSDL2main -lSDL2 -lSDL2_image -Wnarrowing -w -Wl,-subsystem,windows 

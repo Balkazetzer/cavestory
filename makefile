@@ -9,7 +9,7 @@ OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(TEMP_DIR)/%.o,$(SRCS))
 OBJ_NAME = $(BIN_DIR)/cavestory
 
 # Flags for linking
-LINK_FLAGS =-lmingw32 -lSDL2main -lSDL2 -lSDL2_image -Wnarrowing -w -Wl,-subsystem,windows 
+LINK_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -Wnarrowing -w -Wl,-subsystem,windows 
 
 #This is the target that compiles our executable
 $(OBJ_NAME) : $(OBJS) 

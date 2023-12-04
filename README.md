@@ -8,3 +8,6 @@
   - Presiona Z para saltar
   - Presiona la tecla "Esc" para cerrar el juego
     
+#ADVERTENCIAS
+  - Antes de iniciar, borre los archivos dentro de la carpeta temporal y vuelva a compilar
+  - Asegúrese de que la carpeta bin existe

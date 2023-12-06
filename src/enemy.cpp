@@ -1,4 +1,4 @@
-#include "enemy.h"
+#include <Enemy.h>
 
 //Base enemy class
 Enemy::Enemy() {}

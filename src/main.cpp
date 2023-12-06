@@ -2,7 +2,7 @@
  * The entry point of the program
  */
 
-#include "game.h"
+#include <Game.h>
 
 int main( int argc, char* args[] ){
 	Game game;

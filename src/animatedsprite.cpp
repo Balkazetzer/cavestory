@@ -1,6 +1,6 @@
-#include "animatedsprite.h"
-#include "graphics.h"
-#include "sprite.h"
+#include <Animatedsprite.h>
+#include <Graphics.h>
+#include <Sprite.h>
 
 /* AnimatedSprite class
  * Animates our sprites

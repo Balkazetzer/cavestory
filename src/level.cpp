@@ -1,11 +1,11 @@
-#include "level.h"
-#include "graphics.h"
-#include "globals.h"
-#include "utils.h"
-#include "player.h"
-#include "enemy.h"
+#include <Level.h>
+#include <Graphics.h>
+#include <Globals.h>
+#include <Utils.h>
+#include <Player.h>
+#include <Enemy.h>
 
-#include "tinyxml2.h"
+#include <tinyxml2.h>
 
 #include <SDL2/SDL.h>
 

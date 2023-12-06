@@ -1,6 +1,6 @@
-#include "sprite.h"
-#include "graphics.h"
-#include "globals.h"
+#include <Sprite.h>
+#include <Graphics.h>
+#include <Globals.h>
 
 Sprite::Sprite() {}
 

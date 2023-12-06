@@ -1,7 +1,7 @@
 #ifndef SLOPE_H
 #define SLOPE_H
 
-#include "globals.h"
+#include <Globals.h>
 
 #include <cmath>
 

@@ -1,11 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "animatedsprite.h"
-#include "globals.h"
-#include "slope.h"
-#include "level.h"
-#include "enemy.h"
+#include <Animatedsprite.h>
+#include <Globals.h>
+#include <Slope.h>
+#include <Level.h>
+#include <Enemy.h>
 
 class Graphics;
 

@@ -4,12 +4,12 @@
 #include <string>
 #include <vector>
 
-#include "globals.h"
-#include "tile.h"
-#include "rectangle.h"
-#include "slope.h"
-#include "animatedtile.h"
-#include "door.h"
+#include <Globals.h>
+#include <Tile.h>
+#include <Rectangle.h>
+#include <Slope.h>
+#include <Animatedtile.h>
+#include <Door.h>
 
 class Graphics;
 class Enemy;

@@ -2,8 +2,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "graphics.h"
-#include "globals.h"
+#include <Graphics.h>
+#include <Globals.h>
 
 
 /* Graphics class

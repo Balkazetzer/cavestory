@@ -1,6 +1,6 @@
-@startuml FearandHunger
+@startuml Cavestory
 
-class FearandHunger
+class Cavestory
 class Animatedsprite
 class Animatedtile
 class Door
@@ -16,9 +16,9 @@ class Slope
 class Sprite
 class Tile
 
-FearandHunger *-- Enemy
-FearandHunger *-- Player
-FearandHunger *-- Level
+Cavestory *-- Enemy
+Cavestory *-- Player
+Cavestory *-- Level
 Level *-- Door
 Level *-- Enemy
 Level o-- Tile
